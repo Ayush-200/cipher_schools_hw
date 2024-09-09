@@ -30,3 +30,42 @@ int main() {
 
 // Write a function bool isPalindrome(const std::string &str) that checks whether a given string is a palindrome (a word, phrase, or sequence that reads the same backward as forward).
 //   The function should ignore spaces, punctuation, and case sensitivity. Test your function with various strings in the main() function
+
+#include <iostream>
+using namespace std;
+
+bool valid(string arr){
+    int i=0;
+    int j=arr.size();
+    while(i<=j){
+        if(arr[i] >= 'A' && arr[i] <= 'Z'){
+            arr[i] = arr[i] + ' ' ;
+        }
+         if(arr[j] >= 'A' && arr[j] <= 'Z'){
+            arr[j] = arr[j] + ' ' ;
+        }
+        if(arr[i] <= 'a' || arr[i] >= 'z'){
+            i++;
+            continue;
+        }
+        if(arr[j] <= 'a' || arr[j] >= 'z'){
+            j--;
+            continue;
+        }
+        
+        
+        if(arr[i] != arr[j]){
+            return false;
+        }
+        i++;
+        j--;
+    }
+    return true;
+}
+int main() {
+    
+    string str = "A man, a plan, a canal,,, Panama   " ;
+  
+    cout << valid(str);
+    return 0;
+}
