@@ -1,0 +1,87 @@
+// Write a C++ program that take txt file input and write your details inside that file through c++ and then print this details
+
+#include <iostream>
+#include <fstream>  
+#include <string>   
+
+using namespace std;
+
+int main() {
+    string name = "John Doe";
+    int age = 21;
+    string address = "123 Main Street, Cityville";
+
+    
+    ofstream outfile("details.txt");  
+
+    if (!outfile) {
+        cout << "Error creating file!" << endl;
+        return 1;
+    }
+
+
+    outfile << "Name: " << name << endl;
+    outfile << "Age: " << age << endl;
+    outfile << "Address: " << address << endl;
+
+ 
+    outfile.close();
+
+   
+    ifstream infile("details.txt");  
+
+    if (!infile) {
+        cout << "Error opening file!" << endl;
+        return 1;
+    }
+
+
+    string line;
+    cout << "Details from the file: " << endl;
+    while (getline(infile, line)) {
+        cout << line << endl;  
+    }
+
+   
+    infile.close();
+
+    return 0;
+}
+
+
+
+
+ // Write C++ program that take input from the txt file and then print output inside terminal. Take any txt file by yourself.
+
+   #include <iostream>
+#include <fstream>  
+#include <string>   
+
+using namespace std;
+
+int main() {
+    
+    ifstream infile("input.txt");  
+
+   
+    if (!infile) {
+        cout << "Error opening file!" << endl;
+        return 1;
+    }
+
+ 
+    string line;
+    cout << "Reading content from the file:" << endl;
+    while (getline(infile, line)) {  
+        cout << line << endl;            }
+
+
+    infile.close();
+
+    return 0;
+}
+
+
+
+
+
