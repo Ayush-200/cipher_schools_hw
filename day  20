@@ -1,0 +1,56 @@
+// Online C++ compiler to run C++ program online
+
+// Ques 1: You are given a image in n*m matrix now you have to rotate the image by 90 degree. Input : n=3, m=3 , image[3][3]={[1, 2, 3],[4,5,6],[7,8,9]}. Output =7 4 1
+// 8 5 2
+// 9 6 3
+
+#include <iostream>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    int arr[n][n];
+    int arr2[n*n];
+    int N = n*n;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin >> arr[i][j];
+        }
+    }
+    
+    int count = 0;
+    int k=0;
+   
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            arr2[k] = arr[i][j];
+            k++;
+        }
+    }
+    
+    
+    
+    for(int i=0;i<N-1;i++){
+        for(int j=0;j<N-i-1;j++){
+            if(arr2[j] > arr2[j+1]){
+                swap(arr2[j], arr2[j+1]);
+            }
+        }
+    }
+    
+    k=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            arr[i][j] = arr2[k];
+            k++;
+        }
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+        
+    return 0;
+}
