@@ -1,0 +1,201 @@
+ Write C++ program to create a doubly linkedlist and insert a node at any position . Input Linkedlist: 2<->4<->5 ,p = 2, x = 6 Output: 2 4 5 6, Explanation: p = 2, and x = 6. So, 6 is
+inserted after p, i.e, at position 3
+
+#include <iostream>
+using namespace std;
+
+// Definition of a doubly linked list node
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+
+    // Constructor to create a new node
+    Node(int val) {
+        data = val;
+        prev = nullptr;
+        next = nullptr;
+    }
+};
+
+// Class for handling the doubly linked list
+class DoublyLinkedList {
+public:
+    Node* head;
+
+    DoublyLinkedList() {
+        head = nullptr;
+    }
+
+    // Function to insert a node at the end of the list
+    void insertAtEnd(int val) {
+        Node* newNode = new Node(val);
+        if (head == nullptr) {
+            head = newNode;
+            return;
+        }
+
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+
+        temp->next = newNode;
+        newNode->prev = temp;
+    }
+
+    // Function to insert a node at any position (1-based index)
+    void insertAtPosition(int p, int val) {
+        Node* newNode = new Node(val);
+
+        // Inserting at the head (position 1)
+        if (p == 1) {
+            newNode->next = head;
+            if (head != nullptr) {
+                head->prev = newNode;
+            }
+            head = newNode;
+            return;
+        }
+
+        // Traverse the list to find the position where the new node will be inserted
+        Node* temp = head;
+        int currentPosition = 1;
+        while (currentPosition < p - 1 && temp != nullptr) {
+            temp = temp->next;
+            currentPosition++;
+        }
+
+        // If temp is null, the position is out of bounds
+        if (temp == nullptr) {
+            cout << "Position out of bounds" << endl;
+            return;
+        }
+
+        // Insert the new node between temp and temp->next
+        newNode->next = temp->next;
+        if (temp->next != nullptr) {
+            temp->next->prev = newNode;
+        }
+        temp->next = newNode;
+        newNode->prev = temp;
+    }
+
+    // Function to print the list
+    void display() {
+        Node* temp = head;
+        while (temp != nullptr) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    // Create a doubly linked list
+    DoublyLinkedList dll;
+
+    // Insert initial elements: 2, 4, 5
+    dll.insertAtEnd(2);
+    dll.insertAtEnd(4);
+    dll.insertAtEnd(5);
+
+    cout << "Original list: ";
+    dll.display(); // Should print: 2 4 5
+
+    // Insert value 6 at position 3
+    int p = 3, x = 6;
+    dll.insertAtPosition(p, x);
+
+    cout << "Updated list after inserting " << x << " at position " << p << ": ";
+    dll.display(); // Should print: 2 4 6 5
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+question 2
+Write C++ program that detect the cycle inside a given linkedlist if their is any cycle present then print true otherwise print false. Input: head = [3,2,0,-4], pos = 1. 
+Output: true. Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public:
+  int data;
+  Node* next;
+  
+  Node(int _data){
+      data = _data;
+      next = NULL;
+  }
+};
+
+void print(Node* head){
+    Node* temp = head;
+    while(temp->next->next != head->next){
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    
+}
+
+void insertAthead(Node* &head, int n){
+    Node* newNode = new Node(n);
+    Node* temp = head;
+    if(head == NULL){
+        head = newNode;
+        head->next = head;
+        return;
+    }
+    while(temp->next != head){
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    newNode->next = head;
+    head = newNode;
+}
+
+
+
+void cycle(Node* head){
+    Node* fast = head;
+    Node* slow = head;
+    
+    while(fast!=NULL){
+        fast = fast->next;
+        if(fast != NULL){
+            fast = fast->next;
+            slow = slow->next;
+        }
+        if(fast == slow){
+            cout << "true" << endl;
+            return;
+        }
+    }
+    cout << "false" << endl;
+}
+
+int main(){
+    Node* head = NULL;
+    
+    insertAthead(head, 10);
+    insertAthead(head, 20);
+    insertAthead(head, 30);
+    insertAthead(head, 40);
+    insertAthead(head, 50);
+    insertAthead(head, 60);
+    insertAthead(head, 70);
+    cycle(head);
+    
+
+    print(head);
+}
